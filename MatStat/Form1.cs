@@ -183,14 +183,12 @@ namespace MatStat
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
 
+        #region Заполнение форм полей в форме
         private void FillBoxAndLabels()
         {
             CrearLabels();
             ComboBoxFill();
         }
-
-
-        #region Заполнение форм полей в форме
         private void Inicialaze()
         {
             if (textBox1.Text == "")
@@ -519,10 +517,8 @@ namespace MatStat
         private double MZero()
         {
             double a = 1;
-            if (intervalNumbers.Max() -
-                intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max())] == 0)
+            if (Array.IndexOf(intervalNumbers, intervalNumbers.Max()) == 0)
             {
-
                 a = intervalNumbers.Max() -
                 intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max())];
             }
@@ -534,7 +530,7 @@ namespace MatStat
             }
             double b;
             if (intervalNumbers.Max() -
-                intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max())] == 0)
+                intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) + 1] == 0)
             {
                 b = intervalNumbers.Max() -
                 intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max())];
@@ -545,8 +541,8 @@ namespace MatStat
                 intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) + 1];
             }
 
-
-            return Math.Round(XZero() + (((a) / (a + b)) * h), 2);
+            var c = Math.Round(XZero() + (((a) / (a + b)) * h), 2);
+            return c;
         }
         private double XZero()
         {
