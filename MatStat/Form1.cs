@@ -75,14 +75,12 @@ namespace MatStat
         {
             InitializeComponent();
             FillBoxAndLabels();
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
 
         #region Заполнение форм полей в форме
         private void FillBoxAndLabels()
         {
             CrearLabels();
-            ComboBoxFill();
         }
         private void Inicialaze()
         {
@@ -99,6 +97,10 @@ namespace MatStat
             else
                 index = int.Parse(textBox2.Text);
 
+            if (textBox3.Text != "")
+                countOfNumbers = int.Parse(textBox3.Text);
+            else
+                countOfNumbers = 30;
             ReadFile(index);
         }
         private void CrearLabels()
@@ -138,30 +140,6 @@ namespace MatStat
             label10.Text = $"{leftSChert} < (сигма с прямой чертой) < {rightSChert}";
             label12.Text = String.Join(", ", numbers);
             label15.Text = tShtrih().ToString();
-        }
-        private void ComboBoxFill()
-        {
-            comboBox1.Items.Insert(0, "5");
-            comboBox1.Items.Insert(1, "6");
-            comboBox1.Items.Insert(2, "7");
-            comboBox1.Items.Insert(3, "8");
-            comboBox1.Items.Insert(4, "9");
-            comboBox1.Items.Insert(5, "10");
-            comboBox1.Items.Insert(6, "11");
-            comboBox1.Items.Insert(7, "12");
-            comboBox1.Items.Insert(8, "13");
-            comboBox1.Items.Insert(9, "14");
-            comboBox1.Items.Insert(10, "15");
-            comboBox1.Items.Insert(11, "16");
-            comboBox1.Items.Insert(12, "17");
-            comboBox1.Items.Insert(13, "18");
-            comboBox1.Items.Insert(14, "19");
-            comboBox1.Items.Insert(15, "20");
-            comboBox1.Items.Insert(16, "25");
-            comboBox1.Items.Insert(17, "30");
-            comboBox1.Items.Insert(18, "35");
-            comboBox1.Items.Insert(19, "40");
-            comboBox1.Items.Insert(20, "45");
         }
         private void ChartFill()
         {
@@ -407,8 +385,7 @@ namespace MatStat
                     intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) - 1];
             }
             double b;
-            if (intervalNumbers.Max() -
-                intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) + 1] == 0)
+            if (Array.IndexOf(intervalNumbers, intervalNumbers.Max()) == intervalNumbers.Length - 1)
             {
                 b = intervalNumbers.Max() -
                 intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max())];
@@ -495,10 +472,6 @@ namespace MatStat
                 numbers[i] = double.Parse(cells[index - 1]);
             }
         }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            countOfNumbers = int.Parse(comboBox1.SelectedItem.ToString());
-        }
         private void button1_Click_1(object sender, EventArgs e)
         {
             DataTable data = new DataTable();
@@ -509,7 +482,6 @@ namespace MatStat
             Controls.Clear();
             InitializeComponent();
             FillBoxAndLabels();
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
     }
 }
