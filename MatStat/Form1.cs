@@ -232,6 +232,18 @@ namespace MatStat
         {
 
         }
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
         #endregion
 
@@ -260,11 +272,12 @@ namespace MatStat
         }
 
         #region Главные висчитывающие функции
-        private void MainProgram()
+        private void MainProgram() // Основная часть программы
         {
             // Сортировка и нахождение min и max и нахождение n
             //countOfNumbers = numbers.Length;
             numbers = numbers.OrderBy(x => x).ToArray(); // Сортировка на всякий
+            //Присваивание максимума и минимума
             xMin = numbers[0];
             xMax = numbers[numbers.Length - 1];
 
@@ -287,7 +300,8 @@ namespace MatStat
                 }
             }
 
-            intervalNumbers = CalcIntervals();
+            // Основные присвоения
+            intervalNumbers = CalcIntervals(); //
             xAverage = new double[countIntrevals];
             xAverage = Averange();
             xWithDash = xDash();
@@ -329,26 +343,7 @@ namespace MatStat
         }
         private double tShtrih()
         {
-            //int a = 0;
-            //double t = 0;
-            //switch (gamma)
-            //{
-            //    case 0.95:
-            //        a = 1;
-            //        break;
-            //    case 0.99:
-            //        a = 2;
-            //        break;
-            //    case 0.999:
-            //        a = 3;
-            //        break;
-            //}
-            //for (int i = 0; i < ty.GetLength(0); i++)
-            //{
-            //    if (ty[i, 0] == countOfNumbers)
-            //        t = ty[i, a];
-            //}
-            double y = chart1.DataManipulator.Statistics.InverseTDistribution(gamma, countOfNumbers - 1);
+            double y = chart1.DataManipulator.Statistics.InverseTDistribution(gamma, countOfNumbers);
             return y;
         }
         private double SigmaPow(int degree)
@@ -500,22 +495,10 @@ namespace MatStat
                 numbers[i] = double.Parse(cells[index - 1]);
             }
         }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             countOfNumbers = int.Parse(comboBox1.SelectedItem.ToString());
         }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             DataTable data = new DataTable();
@@ -527,11 +510,6 @@ namespace MatStat
             InitializeComponent();
             FillBoxAndLabels();
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
