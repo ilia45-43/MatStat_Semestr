@@ -13,6 +13,7 @@ namespace MatStat
 {
     public partial class Form1 : Form
     {
+        #region Переменные
         private double[,] ty = new double[,] {
             { 5,
                 2.78  ,
@@ -118,7 +119,7 @@ namespace MatStat
                 2.692  ,
                 3.527}}; // Таблица Стьюдента
 
-        private double[] alfaInTable = new double[] { 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 
+        private double[] alfaInTable = new double[] { 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.75,
             0.9, 0.95, 0.975, 0.99, 0.995 }; // Индексы хи квадрат
         private double[,] hiQuad = new double[,] {
             { 1,  6.63490 , 5.02389 , 3.84146 , 2.70554 , 1.32330 , 0.45494 , 0.10153 , 0.01579 , 0.00393 ,0.00098 , 0.00016 , 0.00004},
@@ -173,6 +174,7 @@ namespace MatStat
         private double rightXChert; // Правая часть икс с чертой
         private double leftSChert; // Левая часть сигма с чертой
         private double rightSChert; // Правая часть сигма с чертой
+        #endregion
 
         public Form1()
         {
@@ -220,11 +222,27 @@ namespace MatStat
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            AllClear();
             Inicialaze();
             MainProgram();
             dataGridView1.DataSource = GetDataTable(countIntrevals);
             FillTable();
             LabelFill();
+            ChartFill();
+        }
+
+        private void AllClear()
+        {
+            //for (int i = 0; i < countIntrevals; i++)
+            //{
+            //    for (int j = 0; j < 5; j++)
+            //    {
+            //        dataGridView1.Rows[i].Cells[j].Value = "";
+            //        dataGridView1.ClearSelection();
+            //    }
+            //}
+            //dataGridView1.Rows.Clear();
+            //dataGridView1.DataSource.Cle
         }
 
         #region Заполнение 
@@ -264,6 +282,17 @@ namespace MatStat
             comboBox1.Items.Insert(19, "40");
             comboBox1.Items.Insert(20, "45");
         }
+        private void ChartFill()
+        {
+            var b = xMin;
+            for (int i = 0; i < countIntrevals; i++)
+            {
+                chart1.Series["Gistogram"].Points.AddXY($"{b}-{b + h}", $"{intervalNumbers[i]}");
+                b += h;
+            }
+
+            chart1.Titles.Add("Гистограмма");
+        }
         private void FillTable()
         {
             double b = xMin;
@@ -300,6 +329,8 @@ namespace MatStat
 
         }
         #endregion
+
+        #region Ненужное
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -320,6 +351,7 @@ namespace MatStat
         {
 
         }
+        #endregion
         #endregion
 
         private DataTable GetDataTable(int count)
@@ -497,8 +529,8 @@ namespace MatStat
             else
             {
 
-            a = intervalNumbers.Max() -
-                intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) - 1];
+                a = intervalNumbers.Max() -
+                    intervalNumbers[Array.IndexOf(intervalNumbers, intervalNumbers.Max()) - 1];
             }
             double b;
             if (intervalNumbers.Max() -
@@ -532,7 +564,7 @@ namespace MatStat
         private double Mediana()
         {
             double a = 1;
-            if(Array.IndexOf(intervalNumbers, intervalNumbers.Max()) == 0)
+            if (Array.IndexOf(intervalNumbers, intervalNumbers.Max()) == 0)
             {
                 a = nNakoplen[Array.IndexOf(intervalNumbers, intervalNumbers.Max())];
             }
@@ -598,6 +630,24 @@ namespace MatStat
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             countOfNumbers = int.Parse(comboBox1.SelectedItem.ToString());
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DataTable data = new DataTable();
+            dataGridView1.DataSource = GetDataTable(0);
+            countOfNumbers = 0;
+            countIntrevals = 0;
+            numbers = new double[countOfNumbers];
+            Controls.Clear();
+            InitializeComponent();
+            FillBoxAndLabels();
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
     }
 }
